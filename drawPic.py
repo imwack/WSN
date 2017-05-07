@@ -3,7 +3,8 @@ from node import Node
 import matplotlib.pyplot as plt
 
 
-def draw_map(nodes):
+# 画传感网拓扑图
+def draw_map(nodes, source_id, dest_id):
     x = []
     y = []
     for node in nodes:
@@ -13,10 +14,20 @@ def draw_map(nodes):
     plt.title('Sensor Network')
     plt.xlabel('X')
     plt.ylabel('Y')
-    plt.plot(x, y, '.')
+    plt.plot(x, y, '.k')
+
+    # source node
+    plt.plot(nodes[source_id].x, nodes[source_id].y, 'r*')
+    plt.annotate('Source', xy=(nodes[source_id].x, nodes[source_id].y),
+                 xytext=(nodes[source_id].x+1, nodes[source_id].y+1))
+
+    # dest node
+    for x in dest_id:
+        plt.plot(nodes[x].x, nodes[x].y, 'b*')
     plt.show()
 
 
+# 画能量分布图
 def draw_energy(nodes):
     e = []
     x = [n for n in range(0, len(nodes))]
