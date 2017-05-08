@@ -21,6 +21,7 @@ def init_network(number_of_node=100, width=1000, height=1000, prt=0):
     # print "_______init end__________"
     return nodes
 
+
 # 生成目的节点
 def init_dest_node(nodes, number_of_dest, source_id, prt=0):
     dest_id = []
