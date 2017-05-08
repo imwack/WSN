@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 # 画传感网拓扑图
-def draw_map(nodes, source_id, dest_id):
+def draw_map(nodes, source, dest):
     x = []
     y = []
     for node in nodes:
@@ -17,15 +17,15 @@ def draw_map(nodes, source_id, dest_id):
     plt.plot(x, y, '.k')
 
     # source node
-    plt.plot(nodes[source_id].x, nodes[source_id].y, 'r*')
-    plt.annotate('Source', xy=(nodes[source_id].x, nodes[source_id].y),
-                 xytext=(nodes[source_id].x+1, nodes[source_id].y+1))
+    plt.plot(source.x, source.y, 'r*')
+    plt.annotate('Source', xy=(source.x, source.y),
+                 xytext=(source.x+1, source.y+1))
 
     # dest node
-    for x in dest_id:
-        plt.plot(nodes[x].x, nodes[x].y, 'b*')
+    for d in dest:
+        plt.plot(d.x, d.y, 'b*')
     plt.show()
-
+    return plt
 
 # 画能量分布图
 def draw_energy(nodes):
@@ -42,5 +42,7 @@ def draw_energy(nodes):
     plt.ylabel('Energy')
     plt.show()
 
+def draw_after_cluster(nodes, source, dest, dest_cluster):
+    plt = draw_map(nodes, source, dest)
 
 
