@@ -59,9 +59,13 @@ def draw_after_cluster(nodes, source, dest, cluster_center, dest_cluster):
     plt.scatter(source.x, source.y, c='r')
     plt.annotate('Source', xy=(source.x, source.y),
                  xytext=(source.x + 1, source.y + 1))
-    #print dest_cluster
+    # print dest_cluster
+    for c in cluster_center:
+        plt.scatter(c[0], c[1], c='r')
+        plt.annotate('Center', xy=(c[0], c[1]),
+                     xytext=(c[0] + 1, c[1] + 1))
     for i in range(len(dest)):
         pass
         plt.scatter(dest[i].x, dest[i].y, c=color[dest_cluster[i]])
-    plt.show()
-
+    # plt.show()
+    return plt

@@ -88,11 +88,10 @@ def calc_next_step(nodes, source, pos):
             del temp_node[d]
 
         print "next step id:", candidate[next_step],"len node:",len(temp_node)
-        #print "next step:%d (%d,%d)" % (candidate[next_step], temp_node[candidate[next_step]].x, temp_node[candidate[next_step]].y)
         for node in temp_node:
             if node.id == candidate[next_step]:
                 source = node
-
+    return path
 
 
 if __name__ == "__main__":
@@ -116,9 +115,31 @@ if __name__ == "__main__":
     clf = cluster(dest,clusters)
     cluster_center = clf.cluster_centers_
     dest_cluster = clf.labels_              # 目标节点分类
-    #draw_after_cluster(nodes, source, dest, cluster_center, dest_cluster)
+    plt = draw_after_cluster(nodes, source, dest, cluster_center, dest_cluster)
 
     paths = []
     for pos in cluster_center:
-        calc_next_step(nodes, source, pos)
-    print len(nodes)
+        path = calc_next_step(nodes, source, pos)
+        paths.append(path)
+
+    print paths
+
+    xx = []
+    yy = []
+
+    for i in range(len(paths)):
+        x = [source.x]
+        y = [source.y]
+        path = paths[i]
+        for id in path:
+            x.append(nodes[id].x)
+            y.append(nodes[id].y)
+        x.append(cluster_center[i][0])
+        y.append(cluster_center[i][1])
+        xx.append(x)
+        yy.append(y)
+
+    color = ['c-', 'b-', 'g-', 'm-', 'w-', 'y-', 'k-', 'r-']
+    for i in range(len(xx)):
+        plt.plot(xx[i], yy[i], color[i])
+    plt.show()
