@@ -11,6 +11,7 @@ from numpy import random
 
 
 class Node(object):
+    id = 0
     x = 0
     y = 0
     energy = 0.0
