@@ -27,14 +27,18 @@ def draw_map(nodes, source, dest):
     return plt
 
 # 画能量分布图
-def draw_energy(nodes):
+def draw_energy(nodes,energy0):
     e = []
     x = [n for n in range(0, len(nodes))]
+    x2 = [n+0.2 for n in range(0, len(nodes))]
     for node in nodes:
         e.append(node.energy)
 
-    fig = plt.figure()
-    plt.bar(x, e, alpha=0.5, color='g')
+    #fig = plt.figure()
+    plt.bar(x, e,  facecolor='lightskyblue', edgecolor='white')
+    # width:柱的宽度
+    plt.bar(x2 ,energy0,  facecolor='yellowgreen', edgecolor='white')
+
 
     plt.title('Node-Energy')
     plt.xlabel('Node')
