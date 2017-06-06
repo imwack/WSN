@@ -39,7 +39,12 @@ def draw_energy(nodes,energy0):
     # width:柱的宽度
     plt.bar(x2 ,energy0,  facecolor='yellowgreen', edgecolor='white')
 
-
+    print e
+    print energy0
+    sum = 0
+    for i in range(len(e)):
+        sum+= energy0[i]-e[i]
+    print "energy:",sum
     plt.title('Node-Energy')
     plt.xlabel('Node')
     plt.ylabel('Energy')

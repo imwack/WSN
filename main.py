@@ -56,7 +56,7 @@ def calc_next_step(nodes, source, pos):
             if node.id == current_src.id:
                 continue
 
-            if node.energy < 0.1:  # 能量过低舍去
+            if node.energy < 1000:  # 能量过低舍去
                 continue
 
             a = numpy.sqrt(pow(pos[0] - current_src.x, 2) + pow(pos[1] - current_src.y, 2))
@@ -91,6 +91,9 @@ def calc_next_step(nodes, source, pos):
 
 
         #print degree
+        min_distance = numpy.min(distance)
+        max_distance = numpy.max(distance)
+
         distance = normalization(distance)
         degree = normalization(degree)
         energy = normalization(energy)
@@ -103,7 +106,7 @@ def calc_next_step(nodes, source, pos):
                 next_step = i
         path.append(candidate[next_step])
 
-        print "next step id:", candidate[next_step],"len node:",len(temp_node)
+        #print "next step id:", candidate[next_step],"len node:",len(temp_node)
         for node in temp_node:
             if node.id == candidate[next_step]:
                 ss = node
@@ -111,7 +114,9 @@ def calc_next_step(nodes, source, pos):
         for i in range(len(temp_node)):
             if temp_node[i].id == candidate[next_step]:
                 # 减少能量
-                temp_node[i].energy  -= 0.1*distance[next_step]
+                #temp_node[i].energy  -= 0.1*distance[next_step]
+                dis = (max_distance+min_distance) * distance[next_step] + min_distance
+                temp_node[i].energy -= (0.0001 * dis*dis + 0.05)*512
                 d = i
                 break
         if d!=-1:
@@ -136,11 +141,11 @@ if __name__ == "__main__":
     for i in range(0, len(nodes)):
         nodes[i].id = i
     # plt = draw_map(nodes, source, dest)
-    # draw_energy(nodes)
+
     energy0 = []    #初始能量
     for node in nodes:
         energy0.append(node.energy)
-
+    #draw_energy(nodes,energy0)
     # 对目的节点聚类
     clf = cluster(dest,clusters)
     cluster_center = clf.cluster_centers_
@@ -174,4 +179,4 @@ if __name__ == "__main__":
         plt.plot(xx[i], yy[i], color[i])
     plt.show()
 
-    #draw_energy(nodes,energy0)
+    draw_energy(nodes,energy0)
